@@ -1,0 +1,35 @@
+plugins {
+    id 'java-library'
+    id 'application'
+}
+
+group 'cloud.autotests'
+version '1.0'
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+defaultTasks 'help'
+
+ext {
+    junitVersion = "5.6.2"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation "io.rest-assured:rest-assured:4.1.2"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+task api(type: Test) {
+    useJUnitPlatform {
+        includeTags 'api'
+    }
+}
